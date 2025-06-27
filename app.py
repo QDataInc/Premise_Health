@@ -69,15 +69,27 @@ claims_data = [
 
 @app.route('/claims', methods=['GET'])
 def get_claims():
-    since = request.args.get('since', None)
+    since = request.args.get('since')
+    before = request.args.get('before')
+    
+    result = claims_data
+    
     if since:
         try:
             since_dt = datetime.fromisoformat(since.replace("Z", "+00:00"))
-            filtered = [c for c in claims_data if datetime.fromisoformat(c["last_modified"].replace("Z", "+00:00")) > since_dt]
-            return jsonify(filtered)
+            result = [c for c in result if datetime.fromisoformat(c["last_modified"].replace("Z", "+00:00")) > since_dt]
         except ValueError:
-            return jsonify({"error": "Invalid date format. Use ISO 8601."}), 400
-    return jsonify(claims_data)
+            return jsonify({"error": "Invalid 'since' format"}), 400
+
+    if before:
+        try:
+            before_dt = datetime.fromisoformat(before.replace("Z", "+00:00"))
+            result = [c for c in result if datetime.fromisoformat(c["last_modified"].replace("Z", "+00:00")) < before_dt]
+        except ValueError:
+            return jsonify({"error": "Invalid 'before' format"}), 400
+
+    return jsonify(result)
+
 
 if __name__ == '__main__':
     import os
