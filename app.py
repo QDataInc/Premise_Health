@@ -3,18 +3,49 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-claims_data = [
-    {"claim_id": "C1001", "patient_name": "John Smith", "ssn": "123-45-6789", "dob": "1980-05-15", "gender": "M", "diagnosis": "Diabetes Type 2", "procedure": "CPT 82947", "provider_id": "PR200", "amount_billed": 235.00, "last_modified": "2025-06-24"},
-    {"claim_id": "C1002", "patient_name": "Alice Jones", "ssn": "456-78-9012", "dob": "1975-09-02", "gender": "F", "diagnosis": "Hypertension", "procedure": "CPT 99213", "provider_id": "PR201", "amount_billed": 150.00, "last_modified": "2025-06-25"},
-    {"claim_id": "C1003", "patient_name": "Robert Lee", "ssn": "789-01-2345", "dob": "1992-12-22", "gender": "M", "diagnosis": "Asthma", "procedure": "CPT 94010", "provider_id": "PR202", "amount_billed": 180.00, "last_modified": "2025-06-25"},
-    {"claim_id": "C1004", "patient_name": "Mary Evans", "ssn": "234-56-7890", "dob": "1986-07-11", "gender": "F", "diagnosis": "Fracture Arm", "procedure": "CPT 24500", "provider_id": "PR203", "amount_billed": 1200.00, "last_modified": "2025-06-25"},
-    {"claim_id": "C1005", "patient_name": "David Kim", "ssn": "345-67-8901", "dob": "1990-11-05", "gender": "M", "diagnosis": "Migraine", "procedure": "CPT 96372", "provider_id": "PR204", "amount_billed": 220.00, "last_modified": "2025-06-24"},
-    {"claim_id": "C1006", "patient_name": "Lisa Green", "ssn": "567-89-0123", "dob": "1988-03-18", "gender": "F", "diagnosis": "Anxiety", "procedure": "CPT 96127", "provider_id": "PR205", "amount_billed": 175.00, "last_modified": "2025-06-26"},
-    {"claim_id": "C1007", "patient_name": "James Young", "ssn": "890-12-3456", "dob": "1982-10-29", "gender": "M", "diagnosis": "High Cholesterol", "procedure": "CPT 80061", "provider_id": "PR206", "amount_billed": 140.00, "last_modified": "2025-06-26"},
-    {"claim_id": "C1008", "patient_name": "Nancy Drew", "ssn": "678-90-1234", "dob": "1995-01-14", "gender": "F", "diagnosis": "Depression", "procedure": "CPT 90834", "provider_id": "PR207", "amount_billed": 300.00, "last_modified": "2025-06-26"},
-    {"claim_id": "C1009", "patient_name": "Mark Allen", "ssn": "901-23-4567", "dob": "1970-06-09", "gender": "M", "diagnosis": "Back Pain", "procedure": "CPT 97110", "provider_id": "PR208", "amount_billed": 400.00, "last_modified": "2025-06-25"},
-    {"claim_id": "C1010", "patient_name": "Susan White", "ssn": "012-34-5678", "dob": "1984-08-21", "gender": "F", "diagnosis": "Insomnia", "procedure": "CPT 95810", "provider_id": "PR209", "amount_billed": 600.00, "last_modified": "2025-06-26"}
+members_data = [
+    {"member_id": "M1001", "name": "Trevor Lowe", "email": "trevor.lowe@gmail.com", "address": "9490 Dennis Circle", "ssn": "176-92-5860", "gender": "M", "dob": "1966-04-09", "join_date": "2025-06-20"},
+    {"member_id": "M1002", "name": "Kelli Williams", "email": "kelli.williams@gmail.com", "address": "8511 Harper Ridge", "ssn": "111-65-7322", "gender": "F", "dob": "1982-09-17", "join_date": "2025-06-21"},
+    {"member_id": "M1003", "name": "David Kim", "email": "david.kim@gmail.com", "address": "2489 Evans Lakes", "ssn": "645-30-5323", "gender": "M", "dob": "1976-08-02", "join_date": "2025-06-22"},
+    {"member_id": "M1004", "name": "Lisa Green", "email": "lisa.green@gmail.com", "address": "83191 Kevin Parkway", "ssn": "894-05-7770", "gender": "F", "dob": "1993-12-08", "join_date": "2025-06-23"},
+    {"member_id": "M1005", "name": "James Young", "email": "james.young@gmail.com", "address": "8692 Andrew Locks", "ssn": "283-52-5160", "gender": "M", "dob": "1964-12-30", "join_date": "2025-06-24"},
 ]
+
+claims_data = [
+    {"claim_id": "C2001", "member_id": "M1001", "service_start_date": "2025-06-21", "service_end_date": "2025-06-23", "diagnosis": "Diabetes", "provider_id": "PR200", "procedure": "CPT 94010", "amount_billed": 369.38},
+    {"claim_id": "C2002", "member_id": "M1001", "service_start_date": "2025-06-24", "service_end_date": "2025-06-26", "diagnosis": "Diabetes", "provider_id": "PR210", "procedure": "CPT 96372", "amount_billed": 195.63},
+    {"claim_id": "C2003", "member_id": "M1001", "service_start_date": "2025-06-27", "service_end_date": "2025-06-29", "diagnosis": "Diabetes", "provider_id": "PR200", "procedure": "CPT 82947", "amount_billed": 340.50},
+    {"claim_id": "C2004", "member_id": "M1002", "service_start_date": "2025-07-01", "service_end_date": "2025-07-03", "diagnosis": "Migraine", "provider_id": "PR200", "procedure": "CPT 96372", "amount_billed": 318.72},
+    {"claim_id": "C2005", "member_id": "M1002", "service_start_date": "2025-07-05", "service_end_date": "2025-07-08", "diagnosis": "Migraine", "provider_id": "PR206", "procedure": "CPT 99213", "amount_billed": 594.13},
+    {"claim_id": "C2006", "member_id": "M1003", "service_start_date": "2025-07-10", "service_end_date": "2025-07-11", "diagnosis": "Back Pain", "provider_id": "PR208", "procedure": "CPT 97110", "amount_billed": 400.00},
+    {"claim_id": "C2007", "member_id": "M1003", "service_start_date": "2025-07-13", "service_end_date": "2025-07-14", "diagnosis": "Back Pain", "provider_id": "PR208", "procedure": "CPT 97110", "amount_billed": 400.00},
+    {"claim_id": "C2008", "member_id": "M1004", "service_start_date": "2025-07-16", "service_end_date": "2025-07-17", "diagnosis": "Hypertension", "provider_id": "PR309", "procedure": "CPT 96372", "amount_billed": 400.00},
+    {"claim_id": "C2009", "member_id": "M1004", "service_start_date": "2025-07-19", "service_end_date": "2025-07-21", "diagnosis": "Hypertension", "provider_id": "PR309", "procedure": "CPT 96372", "amount_billed": 400.00},
+    {"claim_id": "C2010", "member_id": "M1004", "service_start_date": "2025-07-23", "service_end_date": "2025-07-25", "diagnosis": "Hypertension", "provider_id": "PR309", "procedure": "CPT 96372", "amount_billed": 400.00},
+]
+
+# GET /members?date_gt=2025-06-23&date_lt=2025-06-26
+@app.route('/members', methods=['GET'])
+def get_members():
+    gt_date = request.args.get('date_gt')
+    lt_date = request.args.get('date_lt')
+    result = members_data
+
+    try:
+        if gt_date:
+            gt_dt = datetime.strptime(gt_date, "%Y-%m-%d")
+            result = [m for m in result if datetime.strptime(m["join_date"], "%Y-%m-%d") > gt_dt]
+
+        if lt_date:
+            lt_dt = datetime.strptime(lt_date, "%Y-%m-%d")
+            result = [m for m in result if datetime.strptime(m["join_date"], "%Y-%m-%d") < lt_dt]
+
+    except ValueError:
+        return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
+
+    return jsonify(result)
+
+# GET /claims?date_gt=2025-06-23&date_lt=2025-06-26
 @app.route('/claims', methods=['GET'])
 def get_claims():
     gt_date = request.args.get('date_gt')
@@ -23,12 +54,12 @@ def get_claims():
 
     try:
         if gt_date:
-            gt_dt = datetime.strptime(gt_date.strip(), "%Y-%m-%d")
-            result = [c for c in result if datetime.strptime(c["last_modified"], "%Y-%m-%d") > gt_dt]
+            gt_dt = datetime.strptime(gt_date, "%Y-%m-%d")
+            result = [c for c in result if datetime.strptime(c["service_start_date"], "%Y-%m-%d") > gt_dt]
 
         if lt_date:
-            lt_dt = datetime.strptime(lt_date.strip(), "%Y-%m-%d")
-            result = [c for c in result if datetime.strptime(c["last_modified"], "%Y-%m-%d") < lt_dt]
+            lt_dt = datetime.strptime(lt_date, "%Y-%m-%d")
+            result = [c for c in result if datetime.strptime(c["service_start_date"], "%Y-%m-%d") < lt_dt]
 
     except ValueError:
         return jsonify({"error": "Invalid date format. Use YYYY-MM-DD"}), 400
